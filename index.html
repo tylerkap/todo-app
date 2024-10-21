@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo - App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link type="text/css" rel="stylesheet" href="CSS/base.css">
     <script defer src="JS/script.js"></script>
 </head>
@@ -11,26 +12,53 @@
 
     <div class="mainpage-container">
         <div class="header-container">
-                
+            <div class="logo-container">
+                <h1 class="company-name">List Manager</h1>
+                <i class="fa-solid fa-clipboard"></i>
+            </div>
+            <div class="nav-bar-middle">
+
+            </div>
+            <div class="account-container">
+                <i class="fa-regular fa-comment"></i>
+                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-hippo"></i>
+                <i class="fa-solid fa-ghost"></i>
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
         <div class="content-container">
             <div class="sidebar-container">
-                
+                <div class="submit-new-list">
+                    <input type="text" id="list-name-input" name="list-name-input" placeholder="Enter List Name...">
+                    <button for="list-name-input">Create</button>
+                </div>
+                <div class="new-list-container">
+                    <div class="list-item">
+                        <h1>TEST 1</h1>
+                    </div>
+                    <div class="list-item">
+                        <h1>TEST 2</h1>
+                    </div>
+                    <div class="list-item">
+                        <h1>TEST 3</h1>
+                    </div>
+                </div>
             </div>
             <div class="task-container">
-                <div class="tab-container">
+                <!-- <div class="tab-container">
                     <div class="tab">
 
                     </div>
-                </div>
-                <div class="selected-task-container">
+                </div> -->
+                <!-- <div class="selected-task-container">
                     <h1>To-Do List</h1>
                     <input type="text" id="taskInput" placeholder="Enter a new task">
                     <button for="taskInput" onclick="addTask()">Add Task</button>
     
                     <ul id="taskList"></ul>
     
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
