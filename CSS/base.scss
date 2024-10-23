@@ -279,6 +279,10 @@ body {
                             font-family: Lato, sans-serif;
                         }
 
+                        .line-through {
+                            text-decoration: line-through;
+                        }
+
                         #taskItemCheckbox {
                             transform: scale(1.5);
                             accent-color: $highlight-blue;

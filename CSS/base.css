@@ -217,6 +217,9 @@ body {
   font-size: 24px;
   font-family: Lato, sans-serif;
 }
+.mainpage-container .task-container .list-container .list .task-item .task-description .line-through {
+  text-decoration: line-through;
+}
 .mainpage-container .task-container .list-container .list .task-item .task-description #taskItemCheckbox {
   transform: scale(1.5);
   accent-color: rgb(171, 233, 238);
