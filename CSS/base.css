@@ -98,6 +98,9 @@ body {
   border-radius: 5px;
   font-family: Lato, sans-serif;
 }
+.mainpage-container .sidebar-container .submit-new-list input:focus {
+  background-color: rgb(171, 233, 238);
+}
 .mainpage-container .sidebar-container .submit-new-list button {
   width: 60%;
   height: 35px;
@@ -122,6 +125,15 @@ body {
   align-items: center;
   border: 1px solid black;
   font-family: Lato, sans-serif;
+}
+.mainpage-container .sidebar-container .new-list-container .list-item:hover {
+  background-color: rgb(171, 233, 238);
+}
+.mainpage-container .sidebar-container .new-list-container .list-item:active {
+  background-color: rgb(94, 244, 255);
+}
+.mainpage-container .sidebar-container .new-list-container .list-item-active {
+  background-color: rgb(0, 238, 255);
 }
 .mainpage-container .task-container {
   width: 85%;
@@ -159,6 +171,9 @@ body {
   padding-left: 10px;
   margin-left: 20px;
 }
+.mainpage-container .task-container .add-task input:focus {
+  background-color: rgb(171, 233, 238);
+}
 .mainpage-container .task-container .add-task button {
   width: 100px;
   height: 40px;
@@ -183,9 +198,10 @@ body {
 }
 .mainpage-container .task-container .list-container .list .task-item {
   width: 65%;
-  height: 50px;
+  height: 55px;
   padding-left: 10px;
-  border: 1px solid black;
+  border: 1px solid rgb(105, 105, 105);
+  border-radius: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -203,6 +219,7 @@ body {
 }
 .mainpage-container .task-container .list-container .list .task-item .task-description #taskItemCheckbox {
   transform: scale(1.5);
+  accent-color: rgb(171, 233, 238);
 }
 .mainpage-container .task-container .list-container .list .task-item .task-icons {
   width: 100px;

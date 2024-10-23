@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+$highlight-blue: rgb(171, 233, 238);
+$tab-blue: rgb(0, 238, 255);
+$active-blue: rgb(94, 244, 255);
+
 * {
     margin: 0;
     padding: 0;
@@ -119,6 +123,10 @@ body {
                 font-family: Lato, sans-serif;
             }
 
+            input:focus {
+                background-color: $highlight-blue;
+            }
+
             button {
                 width: 60%;
                 height: 35px;
@@ -152,6 +160,18 @@ body {
                 border: 1px solid black;
 
                 font-family: Lato, sans-serif;
+            }
+
+            .list-item:hover {
+                background-color: $highlight-blue;
+            }
+
+            .list-item:active {
+                background-color: $active-blue;
+            }
+
+            .list-item-active {
+                background-color: $tab-blue;
             }
         }
     }
@@ -202,6 +222,10 @@ body {
                 margin-left: 20px;
             }
 
+            input:focus {
+                background-color: $highlight-blue;
+            }
+
             button {
                 width: 100px;
                 height: 40px;
@@ -232,10 +256,11 @@ body {
 
                 .task-item {
                     width: 65%;
-                    height: 50px;
+                    height: 55px;
                     //background-color: pink;
                     padding-left: 10px;
-                    border: 1px solid black;
+                    border: 1px solid rgb(105, 105, 105);
+                    border-radius: 5px;
 
                     display: flex;
                     justify-content: space-between;
@@ -256,9 +281,10 @@ body {
 
                         #taskItemCheckbox {
                             transform: scale(1.5);
+                            accent-color: $highlight-blue;
+                            
                         }
-
-                        
+ 
                     }
 
                     .task-icons {
