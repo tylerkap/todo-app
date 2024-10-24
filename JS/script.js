@@ -55,6 +55,12 @@ function renderPage() {
     sideBarContainer.innerHTML = '';
     
     for (const element in lists) {
+
+        let listSize = Object.keys(lists).length;
+        
+        if (listSize === 1) {
+            currentList = lists[element];
+        }
         let newList = document.createElement('div');
         newList.setAttribute('id', `list-${element}`);
         let listTitle = document.createElement('h1');
@@ -73,7 +79,15 @@ function renderPage() {
 
     taskTitle.innerHTML = '';
     taskTitle.innerHTML = `<h1>${currentList.name}</h1>`;
+    taskTitle.innerHTML += `<i id="listDelete" class="fa-solid fa-trash"></i>`
     addTask.style.display = 'block';
+
+    let listDeleteButton = document.getElementById('listDelete');
+        listDeleteButton.addEventListener('click', () => {
+        alert("WORKS");
+
+        // Grab the currentList to find the key value in the list; remove the key and value; then render the page
+    });
 
     let taskContainer = document.getElementsByClassName('list')[0];
     taskContainer.innerHTML = '';
@@ -138,16 +152,21 @@ function activeList() {
 
             for (let i = 0; i < listArray.length; i++) {
                 listArray[i].classList.remove('list-item-active');
+                console.log("LOOP");
             }
 
+            console.log("TEST");
             element.classList.toggle('list-item-active');
-
 
             renderPage();
         });
     });
 
     return currentList;
+}
+
+function removeList () {
+
 }
 
 
@@ -158,6 +177,8 @@ taskButton.addEventListener('click', () => {
     addTodo();
     renderPage();
 });
+
+
 
 
 
