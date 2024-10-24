@@ -54,22 +54,20 @@ function renderPage() {
     let sideBarContainer = document.getElementsByClassName('new-list-container')[0];
     sideBarContainer.innerHTML = '';
     
-    
-
     for (const element in lists) {
-        currentList = lists[element]
         let newList = document.createElement('div');
         newList.setAttribute('id', `list-${element}`);
-        newList.setAttribute('false', 'listener')
         let listTitle = document.createElement('h1');
         let title = document.createTextNode(lists[element].name);
         newList.classList.add('list-item');
         listTitle.appendChild(title);
         newList.appendChild(listTitle);
         sideBarContainer.appendChild(newList);
-
-        activeList();
     }
+    
+    currentList = activeList();
+
+    console.log(currentList);
 
     let taskTitle = document.getElementsByClassName('list-name')[0];
 
@@ -96,7 +94,7 @@ function renderPage() {
         `; 
     }
     
-    
+    activeList();
 }
         
 
@@ -123,15 +121,19 @@ function addTodo() {
 }
 
 
-function activeList(listId) {
+function activeList() {
     let listArray = document.querySelectorAll('.list-item');
     console.log(listArray);
     
-    
     listArray.forEach((element) => {
         element.addEventListener('click', () => {
-            console.log("TEST");
-            currentList = lists[listId];
+            let idString = element.getAttribute('id');
+            let idSanitize = idString.charAt(idString.length - 1);
+            console.log(idSanitize);
+
+
+            currentList = lists[idSanitize];
+            console.log(element.getAttribute('id'))
             console.log(currentList);
 
             for (let i = 0; i < listArray.length; i++) {
@@ -139,10 +141,16 @@ function activeList(listId) {
             }
 
             element.classList.toggle('list-item-active');
+
+
             renderPage();
         });
     });
+
+    return currentList;
 }
+
+
 
 
 let taskButton = document.getElementById('taskButton');
