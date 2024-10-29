@@ -73,7 +73,7 @@ body {
   flex-direction: row;
 }
 .mainpage-container .sidebar-container {
-  width: 22%;
+  width: 24%;
   min-width: 200px;
   height: 100%;
   border-right: 1px solid black;
@@ -126,6 +126,10 @@ body {
   align-items: center;
   border: 1px solid black;
   font-family: Lato, sans-serif;
+  cursor: pointer;
+}
+.mainpage-container .sidebar-container .new-list-container .list-item h1 {
+  pointer-events: none;
 }
 .mainpage-container .sidebar-container .new-list-container .list-item:hover {
   background-color: rgb(171, 233, 238);
@@ -134,7 +138,7 @@ body {
   background-color: rgb(94, 244, 255);
 }
 .mainpage-container .sidebar-container .new-list-container .active {
-  background-color: pink;
+  background-color: rgb(0, 238, 255);
 }
 .mainpage-container .task-container {
   width: 85%;
