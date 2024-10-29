@@ -30,6 +30,7 @@ body {
 .mainpage-container .header-container .logo-container {
   width: 20%;
   height: 100%;
+  padding-left: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +73,7 @@ body {
   flex-direction: row;
 }
 .mainpage-container .sidebar-container {
-  width: 20%;
+  width: 22%;
   min-width: 200px;
   height: 100%;
   border-right: 1px solid black;
@@ -132,8 +133,8 @@ body {
 .mainpage-container .sidebar-container .new-list-container .list-item:active {
   background-color: rgb(94, 244, 255);
 }
-.mainpage-container .sidebar-container .new-list-container .list-item-active {
-  background-color: rgb(0, 238, 255);
+.mainpage-container .sidebar-container .new-list-container .active {
+  background-color: pink;
 }
 .mainpage-container .task-container {
   width: 85%;

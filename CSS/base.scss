@@ -37,6 +37,7 @@ body {
         .logo-container {
             width: 20%;
             height: 100%;
+            padding-left: 10px;
             // background-color: red;
 
             display: flex;
@@ -92,7 +93,7 @@ body {
     }
 
     .sidebar-container {
-        width: 20%;
+        width: 22%;
         min-width: 200px;
         height: 100%;
         border-right: 1px solid black;
@@ -170,8 +171,8 @@ body {
                 background-color: $active-blue;
             }
 
-            .list-item-active {
-                background-color: $tab-blue;
+            .active {
+                background-color: pink;
             }
         }
     }

@@ -1,66 +1,10 @@
-const testLists = {
-    1: {
-      name: "Shopping list",
-      todos: [
-        {
-          text: 'bananas',
-          completed: false
-        },
-        {
-          text: '1 lbs ground turkey',
-          completed: false
-        }
-      ]
-    },
-    2: {
-        name: "Work",
-        todos: [
-          {
-            text: 'email',
-            completed: false
-          },
-          {
-            text: 'code',
-            completed: false
-          }
-        ]
-    },
-    3: {
-        name: "Personal Project",
-        todos: [
-          {
-            text: 'email',
-            completed: false
-          },
-          {
-            text: 'code',
-            completed: false
-          }
-        ]
-    }
-}
-const testCurrentList = testLists[1];
-const lists = {};
-let currentList = {};
-
-
-let listCount = 1;
-let listButton = document.getElementById('listButton');
-listButton.addEventListener('click', addNewList);
-let addTask = document.getElementById('test');
-addTask.style.display = 'none'
-
 function renderPage() {
     let sideBarContainer = document.getElementsByClassName('new-list-container')[0];
+    let listSize = Object.keys(lists).length;
     sideBarContainer.innerHTML = '';
-    
-    for (const element in lists) {
 
-        let listSize = Object.keys(lists).length;
+    for (const element in lists) {
         
-        if (listSize === 1) {
-            currentList = lists[element];
-        }
         let newList = document.createElement('div');
         newList.setAttribute('id', `list-${element}`);
         let listTitle = document.createElement('h1');
@@ -70,24 +14,26 @@ function renderPage() {
         newList.appendChild(listTitle);
         sideBarContainer.appendChild(newList);
     }
-    
-    currentList = activeList();
+
+    addTask.style.visibility = 'visible';
+    listLoad.style.visibility = 'visible';
 
     console.log(currentList);
+    console.log(currentList.name);
 
-    let taskTitle = document.getElementsByClassName('list-name')[0];
+    let taskTitle = document.getElementsByClassName('list-name')[0];    
+    
+    listHeading = `<h1 class=heading-${listSize}>${currentList.name}</h1>`;
+    listHeading += `<i id="listDelete" class="fa-solid fa-trash"></i>`;
+    
+    console.log(listHeading);
+
+    if (headingArray.length < listSize) {
+        headingArray.push(listHeading);    
+    }
 
     taskTitle.innerHTML = '';
-    taskTitle.innerHTML = `<h1>${currentList.name}</h1>`;
-    taskTitle.innerHTML += `<i id="listDelete" class="fa-solid fa-trash"></i>`
-    addTask.style.display = 'block';
-
-    let listDeleteButton = document.getElementById('listDelete');
-        listDeleteButton.addEventListener('click', () => {
-        alert("WORKS");
-
-        // Grab the currentList to find the key value in the list; remove the key and value; then render the page
-    });
+    taskTitle.innerHTML = listHeading;
 
     let taskContainer = document.getElementsByClassName('list')[0];
     taskContainer.innerHTML = '';
@@ -107,10 +53,10 @@ function renderPage() {
             </div>
         `; 
     }
-    
-    activeList();
+
 }
-        
+
+
 
 function addNewList() {
     
@@ -119,10 +65,12 @@ function addNewList() {
 
     if (listInput !== '' || listInput === undefined) {
         lists[listId] = {name: listInput, todos: []};
+        currentList = lists[listId];
         listCount++;
         renderPage();
     }
 }
+
 
 function addTodo() {
 
@@ -134,94 +82,56 @@ function addTodo() {
     }
 }
 
-
-function activeList() {
-    let listArray = document.querySelectorAll('.list-item');
-    console.log(listArray);
-    
-    listArray.forEach((element) => {
-        element.addEventListener('click', () => {
-            let idString = element.getAttribute('id');
-            let idSanitize = idString.charAt(idString.length - 1);
-            console.log(idSanitize);
-
-
-            currentList = lists[idSanitize];
-            console.log(element.getAttribute('id'))
-            console.log(currentList);
-
-            for (let i = 0; i < listArray.length; i++) {
-                listArray[i].classList.remove('list-item-active');
-                console.log("LOOP");
-            }
-
-            console.log("TEST");
-            element.classList.toggle('list-item-active');
-
-            renderPage();
-        });
-    });
-
-    return currentList;
-}
-
-function removeList () {
+function removeList() {
 
 }
 
 
+
+const lists = {};
+let currentList = {};
+
+let listCount = 1;
+let addTask = document.getElementById('test');
+let listLoad = document.getElementById('listLoad');
+let listButton = document.getElementById('listButton');
+addTask.style.visibility = 'hidden';
+listLoad.style.visibility = 'hidden';
+
+
+let headingArray = [];
+
+let listContainer = document.getElementsByClassName('new-list-container')[0];
+
+listContainer.addEventListener('click', (event) => {
+    let element = event.target;
+    if (element.classList.contains('list-item')) {
+        
+        let listArray = document.querySelectorAll('.list-item');
+        let idString = element.getAttribute('id');
+        let idSanitize = idString.charAt(idString.length - 1);
+
+        currentList = lists[idSanitize];
+        console.log(currentList);
+
+        for (let i = 0; i < listArray.length; i++) {
+            console.log(listArray[i]);
+            listArray[i].classList.remove('active');
+
+        }
+
+        element.classList.toggle('active');
+        
+        renderPage();
+    }
+});
 
 
 let taskButton = document.getElementById('taskButton');
 taskButton.addEventListener('click', () => {
     addTodo();
-    renderPage();
 });
 
 
 
-
-
-
-// newList.addEventListener('click', () => {
-//     currentList = lists[element];
-//     let listItem = document.querySelectorAll('.list-item');
-//     let taskTitle = document.getElementsByClassName('list-name')[0];
-
-//     for (let i = 0; i < listItem.length; i++) {
-//         listItem[i].classList.remove('list-item-active');
-//     }
-    
-//     taskTitle.innerHTML = '';
-//     taskTitle.innerHTML = `<h1>${currentList.name}</h1>`;
-//     addTask.style.display = 'block';
-
-//     let taskContainer = document.getElementsByClassName('list')[0];
-//     taskContainer.innerHTML = '';
-
-//     for (let j = 0; j < currentList.todos.length; j++) {
-//         // let newTask = document.createElement('div');
-//         // newTask.setAttribute('id', `task-item-${j}`);
-//         // newTask.setAttribute('class', 'task-item');
-
-//         taskContainer.innerHTML += 
-//         `
-//             <div id=task-item-${j} class=task-item>
-//                 <div class=task-description>
-//                     <input type=checkbox id=taskItemCheckbox name=taskItemCheckbox>
-//                     <h3>${currentList.todos[j].text}</h3>
-//                 </div>
-//                 <div class=task-icons>
-//                     <i class="fa-solid fa-pen-to-square"></i>
-//                     <i class="fa-solid fa-trash"></i>
-//                 </div>
-//             </div>
-//         `;
-        
-//     }
-
-
-//     console.log(taskContainer);
-
-//     newList.classList.toggle('list-item-active');
-// });
+listButton.addEventListener('click', addNewList);
