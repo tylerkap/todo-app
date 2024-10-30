@@ -65,6 +65,9 @@ body {
   color: whitesmoke;
   font-size: 30px;
 }
+.mainpage-container .header-container .account-container i:hover {
+  color: rgb(151, 255, 250);
+}
 .mainpage-container .content-container {
   width: 100%;
   height: 100%;
@@ -100,7 +103,7 @@ body {
   font-family: Lato, sans-serif;
 }
 .mainpage-container .sidebar-container .submit-new-list input:focus {
-  background-color: rgb(171, 233, 238);
+  background-color: rgb(151, 255, 250);
 }
 .mainpage-container .sidebar-container .submit-new-list button {
   width: 60%;
@@ -111,6 +114,13 @@ body {
   background-color: black;
   color: whitesmoke;
   font-family: Lato, sans-serif;
+  cursor: pointer;
+}
+.mainpage-container .sidebar-container .submit-new-list button:hover {
+  background-color: rgb(34, 34, 34);
+}
+.mainpage-container .sidebar-container .submit-new-list button:active {
+  background-color: rgb(75, 75, 75);
 }
 .mainpage-container .sidebar-container .new-list-container {
   width: 100%;
@@ -132,13 +142,13 @@ body {
   pointer-events: none;
 }
 .mainpage-container .sidebar-container .new-list-container .list-item:hover {
-  background-color: rgb(171, 233, 238);
+  background-color: rgb(151, 255, 250);
 }
 .mainpage-container .sidebar-container .new-list-container .list-item:active {
-  background-color: rgb(94, 244, 255);
+  background-color: rgb(51, 255, 245);
 }
 .mainpage-container .sidebar-container .new-list-container .active {
-  background-color: rgb(0, 238, 255);
+  background-color: rgb(0, 255, 242);
 }
 .mainpage-container .task-container {
   width: 85%;
@@ -181,7 +191,7 @@ body {
   margin-left: 20px;
 }
 .mainpage-container .task-container .add-task input:focus {
-  background-color: rgb(171, 233, 238);
+  background-color: rgb(151, 255, 250);
 }
 .mainpage-container .task-container .add-task button {
   width: 100px;
@@ -190,6 +200,13 @@ body {
   background-color: rgb(0, 0, 0);
   color: whitesmoke;
   font-size: 16px;
+  cursor: pointer;
+}
+.mainpage-container .task-container .add-task button:hover {
+  background-color: rgb(34, 34, 34);
+}
+.mainpage-container .task-container .add-task button:active {
+  background-color: rgb(75, 75, 75);
 }
 .mainpage-container .task-container .list-container {
   width: 100%;
@@ -231,7 +248,7 @@ body {
 }
 .mainpage-container .task-container .list-container .list .task-item .task-description #taskItemCheckbox {
   transform: scale(1.5);
-  accent-color: rgb(171, 233, 238);
+  accent-color: rgb(151, 255, 250);
 }
 .mainpage-container .task-container .list-container .list .task-item .task-icons {
   width: 100px;
