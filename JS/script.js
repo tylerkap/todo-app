@@ -1,68 +1,73 @@
 function renderPage() {
-    if (currentList !== undefined) {
-        let sideBarContainer = document.getElementsByClassName('new-list-container')[0];
-        
-        sideBarContainer.innerHTML = '';
-        let listSize = Object.keys(lists).length;
+    let sideBarContainer = document.getElementsByClassName('new-list-container')[0];
+    
+    sideBarContainer.innerHTML = '';
+    let listSize = Object.keys(lists).length;
+    let test = Object.keys(currentList).length; 
 
-        for (const element in lists) {
-            
-            let newList = document.createElement('div');
-            newList.setAttribute('id', `list-${element}`);
-            let listTitle = document.createElement('h1');
-            let title = document.createTextNode(lists[element].name);
-            newList.classList.add('list-item');
-
-            if (lists[element].active === true) {
-                newList.classList.add('active');
-            }
+    for (const element in lists) {
         
-            listTitle.appendChild(title);
-            newList.appendChild(listTitle);
-            sideBarContainer.appendChild(newList);
+        let newList = document.createElement('div');
+        newList.setAttribute('id', `list-${element}`);
+        let listTitle = document.createElement('h1');
+        let title = document.createTextNode(lists[element].name);
+        newList.classList.add('list-item');
+
+        if (lists[element].active === true) {
+            newList.classList.add('active');
         }
+    
+        listTitle.appendChild(title);
+        newList.appendChild(listTitle);
+        sideBarContainer.appendChild(newList);
+    }
 
-        addTask.style.visibility = 'visible';
-        listLoad.style.visibility = 'visible';
+    addTask.style.visibility = 'visible';
+    listLoad.style.visibility = 'visible';
 
-        let taskTitle = document.getElementsByClassName('list-name')[0]; 
-        
-        listHeading = `<h1 class=heading-${listCount}>${currentList.name}</h1>`;
-        listHeading += `<i id="listDelete" class="fa-solid fa-trash"></i>`;
+    let taskTitle = document.getElementsByClassName('list-name')[0]; 
+    
+    listHeading = `<h1 class=heading-${currentList.position}>${currentList.name}</h1>`;
+    listHeading += `<i id="listDelete" class="fa-solid fa-trash"></i>`;
 
-        console.log(listSize);
-        console.log(headingArray.length);
 
-        if (headingArray.length < listSize) {
-            headingArray.push({position: currentList.position, text: listHeading});    
-        }
+    
 
-        console.log(headingArray);
+    if (headingArray.length < listSize) {
+        headingArray.push({position: currentList.position, text: listHeading});    
+    }
 
+    console.log(`headingArrayLength: ${headingArray.length}`);
+    console.log(headingArray);
+    console.log(currentList);
+
+    if (test !== "0") {
         let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position);
         console.log(`Index: ${checkIndex}`);
-
         taskTitle.innerHTML = '';
         taskTitle.innerHTML = headingArray[checkIndex].text;
+    }
 
-        let taskContainer = document.getElementsByClassName('list')[0];
-        taskContainer.innerHTML = '';
+    
+    
 
-        for (let j = 0; j < currentList.todos.length; j++) {
-            taskContainer.innerHTML += 
-            `
-                <div id=task-item-${j} class=task-item>
-                    <div class=task-description>
-                        <input type=checkbox id=taskItemCheckbox name=taskItemCheckbox>
-                        <h3>${currentList.todos[j].text}</h3>
-                    </div>
-                    <div class=task-icons>
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
+    let taskContainer = document.getElementsByClassName('list')[0];
+    taskContainer.innerHTML = '';
+
+    for (let j = 0; j < currentList.todos.length; j++) {
+        taskContainer.innerHTML += 
+        `
+            <div id=task-item-${j} class=task-item>
+                <div class=task-description>
+                    <input type=checkbox id=taskItemCheckbox name=taskItemCheckbox>
+                    <h3>${currentList.todos[j].text}</h3>
                 </div>
-            `; 
-        }
+                <div class=task-icons>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+            </div>
+        `; 
     }
 }
 
@@ -72,12 +77,15 @@ function addNewList() {
     
     let listInput = document.getElementById('list-name-input').value;
     let listId = listCount;
+
+    console.log(`ListCount: ${listId}`)
     
 
     if (listInput !== '' || listInput === undefined) {
         lists[listId] = {name: listInput, todos: [], active: false, position: listCount};
         currentList = lists[listId];
-        console.log(currentList);
+
+        console.log(currentList)
 
         for (const element in lists) {
             lists[element].active = false;
@@ -104,15 +112,20 @@ function addTodo() {
 
 function removeList(objectKey) {
     let listSize = Object.keys(lists).length;
-
     delete lists[objectKey];
+
+    console.log("REMOVE LIST TESTING");
+
+
     
     if (headingArray.length === 1) {
         headingArray = [];
     } 
     else {
-        arrayIndex = parseInt(objectKey);
-        headingArray.splice(arrayIndex - 1, arrayIndex - 1);
+        let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position)
+        arrayIndex = parseInt(checkIndex);
+        console.log(`CHECK INDEX: ${arrayIndex}`)
+        headingArray.splice(arrayIndex, 1);
         console.log(arrayIndex);
     }
 
@@ -136,15 +149,22 @@ function removeList(objectKey) {
     console.log(`ListSize: ${listSize}`);
 
     if (listSize === 1) {
+        
         currentList = {};
+        let newList = document.getElementsByClassName('new-list-container')[0];
+        newList.innerHTML = '';
+        console.log(newList.innerHTML);
+        console.log(`CurrentList: ${JSON.stringify(currentList)}`)
+        addTask.style.visibility = 'hidden';
+        listLoad.style.visibility = 'hidden';
+        listSize--;
     }
     else {
         currentList = lists[lastKey];
         currentList.active = true;
-    }
-    
-    listSize--;
-    renderPage();
+        listSize--;
+        renderPage();
+    }  
 }
 
 
@@ -190,9 +210,6 @@ listNameContainer.addEventListener('click', (event) => {
     if(element.classList.contains('fa-trash')) {
         let heading = listNameContainer.firstElementChild; 
         let headingId = heading.className.replace(/[^0-9]/g, '');;
-        
-        alert(headingId);
-
         removeList(headingId);
     }
 });
