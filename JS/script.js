@@ -63,8 +63,8 @@ function renderPage() {
                     <h3>${currentList.todos[j].text}</h3>
                 </div>
                 <div class=task-icons>
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <i class="fa-solid fa-trash"></i>
+                    <i id=todoEdit-${j} class="fa-solid fa-pen-to-square"></i>
+                    <i id=todoDelete-${j} class="fa-solid fa-trash"></i>
                 </div>
             </div>
         `; 
@@ -167,6 +167,17 @@ function removeList(objectKey) {
     }  
 }
 
+function removeTodo(index) {
+    alert("THIS IS THE REMOVETODO FUNCTION")
+
+    currentList.todos.splice(index, 1);
+
+    renderPage();
+}
+
+
+
+
 
 
 const lists = {};
@@ -209,7 +220,7 @@ listNameContainer.addEventListener('click', (event) => {
 
     if(element.classList.contains('fa-trash')) {
         let heading = listNameContainer.firstElementChild; 
-        let headingId = heading.className.replace(/[^0-9]/g, '');;
+        let headingId = heading.className.replace(/[^0-9]/g, '');
         removeList(headingId);
     }
 });
@@ -220,6 +231,21 @@ listNameContainer.addEventListener('click', (event) => {
 let taskButton = document.getElementById('taskButton');
 taskButton.addEventListener('click', () => {
     addTodo();
+});
+
+
+let todoContainer = document.getElementsByClassName('list')[0];
+
+todoContainer.addEventListener('click', (event) => {
+    element = event.target;
+
+    if(element.classList.contains('fa-trash')) {
+        let  todoId = element.getAttribute('id');
+        let todoIndex = todoId.replace(/[^0-9]/g, '');
+        console.log(todoIndex);
+        alert(todoIndex);
+        removeTodo(todoIndex);
+    }
 });
 
 
