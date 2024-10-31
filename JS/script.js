@@ -24,6 +24,7 @@ function renderPage() {
 
     addTask.style.visibility = 'visible';
     listLoad.style.visibility = 'visible';
+    todoWrapper.style.visibility = 'visible';
 
     let taskTitle = document.getElementsByClassName('list-name')[0]; 
     
@@ -157,6 +158,7 @@ function removeList(objectKey) {
         console.log(`CurrentList: ${JSON.stringify(currentList)}`)
         addTask.style.visibility = 'hidden';
         listLoad.style.visibility = 'hidden';
+        todoWrapper.style.visibility = 'hidden';
         listSize--;
     }
     else {
@@ -168,13 +170,34 @@ function removeList(objectKey) {
 }
 
 function removeTodo(index) {
-    alert("THIS IS THE REMOVETODO FUNCTION")
 
     currentList.todos.splice(index, 1);
 
     renderPage();
 }
 
+function editTodo(index) {
+    let taskItem = document.getElementById(`task-item-${index}`);
+    alert(taskItem.innerHTML);
+
+    let editContainer = document.createElement('div');
+    editContainer.setAttribute('class', 'edit-task-item');
+    editContainer.innerHTML = `
+        <input type="text" id="editTodoTextBox" name="editTodoTextBox" value="Enter new todo...">
+        <button for="editTodoTextBox" id="editTodoButton">Edit</button>
+        `;
+    taskItem.after(editContainer);
+
+    let editTodoButton = document.getElementById('editTodoButton');
+    let editInput = document.getElementById('editTodoTextBox');
+    editTodoButton.addEventListener('click', () => {
+        let editText = editInput.value;
+        currentList.todos[index].text = editText;
+        alert(editText);
+        renderPage();
+    });
+    
+}
 
 
 
@@ -186,9 +209,11 @@ let headingArray = [];
 let listCount = 1;
 let addTask = document.getElementById('test');
 let listLoad = document.getElementById('listLoad');
+let todoWrapper = document.getElementById('list-container');
 let listButton = document.getElementById('listButton');
 addTask.style.visibility = 'hidden';
 listLoad.style.visibility = 'hidden';
+todoWrapper.style.visibility = 'visible';
 
 
 let listContainer = document.getElementsByClassName('new-list-container')[0];
@@ -243,8 +268,18 @@ todoContainer.addEventListener('click', (event) => {
         let  todoId = element.getAttribute('id');
         let todoIndex = todoId.replace(/[^0-9]/g, '');
         console.log(todoIndex);
-        alert(todoIndex);
         removeTodo(todoIndex);
+    }
+});
+
+todoContainer.addEventListener('click', (event) => {
+    element = event.target;
+
+    if(element.classList.contains('fa-pen-to-square')) {
+        let  todoId = element.getAttribute('id');
+        let todoIndex = todoId.replace(/[^0-9]/g, '');
+        console.log(todoIndex);
+        editTodo(todoIndex);
     }
 });
 

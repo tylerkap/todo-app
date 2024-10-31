@@ -54,7 +54,7 @@
                     <input type="text" id="taskInput" name="tastInput" placeholder="Enter Task...">
                     <button id="taskButton" for="tastInput">Submit</button>
                 </div>
-                <div class="list-container">
+                <div id='list-container' class="list-container">
                     <div class="list">
                         <div class="task-item">
                             <div class="task-description">
@@ -88,6 +88,21 @@
                                 <i class="fa-solid fa-trash"></i>
                             </div>
 
+                        </div>
+                        <div class="task-item">
+                            <div class="task-description">
+                                <input type="checkbox" id="taskItemCheckbox" name="taskItemCheckbox">
+                                <h3>Do the laundry</h3>
+                            </div>
+                            <div class="task-icons">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
+
+                        </div>
+                        <div class="edit-task-item">
+                            <input type="text" id="editTodoTextBox" name="editTodoTextBox" value="Enter new todo...">
+                            <button for="editTodoTextBox" id="editTodoButton">Edit</button>
                         </div>
                     </div>
                 </div>

@@ -117,10 +117,10 @@ body {
   cursor: pointer;
 }
 .mainpage-container .sidebar-container .submit-new-list button:hover {
-  background-color: rgb(34, 34, 34);
+  background-color: rgb(85, 85, 85);
 }
 .mainpage-container .sidebar-container .submit-new-list button:active {
-  background-color: rgb(75, 75, 75);
+  background-color: rgb(19, 19, 19);
 }
 .mainpage-container .sidebar-container .new-list-container {
   width: 100%;
@@ -173,6 +173,13 @@ body {
 }
 .mainpage-container .task-container .list-name i {
   font-size: 30px;
+  cursor: pointer;
+}
+.mainpage-container .task-container .list-name i:hover {
+  color: rgb(85, 85, 85);
+}
+.mainpage-container .task-container .list-name i:active {
+  color: rgb(19, 19, 19);
 }
 .mainpage-container .task-container .add-task {
   width: 100%;
@@ -203,10 +210,10 @@ body {
   cursor: pointer;
 }
 .mainpage-container .task-container .add-task button:hover {
-  background-color: rgb(34, 34, 34);
+  background-color: rgb(85, 85, 85);
 }
 .mainpage-container .task-container .add-task button:active {
-  background-color: rgb(75, 75, 75);
+  background-color: rgb(19, 19, 19);
 }
 .mainpage-container .task-container .list-container {
   width: 100%;
@@ -260,6 +267,46 @@ body {
 }
 .mainpage-container .task-container .list-container .list .task-item .task-icons i {
   font-size: 25px;
+  cursor: pointer;
+}
+.mainpage-container .task-container .list-container .list .task-item .task-icons i:hover {
+  color: rgb(85, 85, 85);
+}
+.mainpage-container .task-container .list-container .list .task-item .task-icons i:active {
+  color: rgb(19, 19, 19);
+}
+.mainpage-container .task-container .list-container .list .edit-task-item {
+  width: 60%;
+  height: 40px;
+  margin-left: 20px;
+  border: 1px solid rgb(105, 105, 105);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.mainpage-container .task-container .list-container .list .edit-task-item input {
+  width: 80%;
+  height: 37px;
+  padding-left: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 400;
+}
+.mainpage-container .task-container .list-container .list .edit-task-item button {
+  width: 130px;
+  height: 40px;
+  background-color: black;
+  color: whitesmoke;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 400;
+}
+.mainpage-container .task-container .list-container .list .edit-task-item button:hover {
+  background-color: rgb(85, 85, 85);
+}
+.mainpage-container .task-container .list-container .list .edit-task-item button:active {
+  background-color: rgb(19, 19, 19);
 }
 .mainpage-container .task-container .selected-task-container {
   width: 94%;
