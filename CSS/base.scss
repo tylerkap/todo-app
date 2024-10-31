@@ -107,6 +107,7 @@ body {
 
         display: flex;
         flex-direction: column;
+        overflow-y: auto;
 
         .submit-new-list {
             width: 100%;
@@ -301,6 +302,8 @@ body {
                 display: flex;
                 flex-direction: column;
 
+                overflow-y: auto;
+
 
                 .task-item {
                     width: 65%;
@@ -406,7 +409,39 @@ body {
                         background-color: $button-active;
                     }
                 }
+               
+
+                .deleteAllTasksWrapper {
+                    width: 66%;
+                    height: 55px;
+                    background-color: pink;
+                    margin-top: 10px;
+                    border-radius: 5px;
+                    
+                    
+                    
+                    button {
+                        width: 100%;
+                        height: 55px;
+                        background-color: black;
+                        color: whitesmoke;
+                        border-radius: 5px;
+
+                        font-size: 20px;
+                        font-weight: 700; 
+                    }
+
+                    button:hover {
+                        background-color: $button-hover;
+                    }
+
+                    button:active {
+                        background-color: $button-active;
+                    }
+                }
             }
+
+            
         }
         
 

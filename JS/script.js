@@ -69,24 +69,6 @@ function renderPage() {
 
 
         list.appendChild(parent1);
-    
-        
-        
-        
-        
-        //taskContainer.innerHTML += 
-        // `
-        //     <div id=task-item-${j} class=task-item>
-        //         <div class=task-description>
-        //             <input type=checkbox id=taskItemCheckbox-${j} class=checkBox>
-        //             <h3 id=taskText-${j}>${currentList.todos[j].text}</h3>
-        //         </div>
-        //         <div class=task-icons>
-        //             <i id=todoEdit-${j} class="fa-solid fa-pen-to-square"></i>
-        //             <i id=todoDelete-${j} class="fa-solid fa-trash"></i>
-        //         </div>
-        //     </div>
-        // `; 
 
         console.log(`Completed: ${currentList.todos[j].completed}`)
 
@@ -104,6 +86,31 @@ function renderPage() {
         console.log(`Current Todo: ${currentList.todos[j].completed}`)
 
     }
+
+    let isCompleted = false;
+
+    for (let l = 0; l < currentList.todos.length; l++) {
+       
+
+        if (currentList.todos[l].completed === true) {
+            isCompleted = true;
+            break;
+        }
+    }
+
+    console.log(isCompleted);
+    let lastTodoString = `task-item-${currentList.todos.length - 1}`;
+    let lastTodo = document.getElementById(lastTodoString);
+
+    if (isCompleted) {
+        let deleteAllWrapper = document.createElement('div');
+        deleteAllWrapper.setAttribute('class', 'deleteAllTasksWrapper');
+        deleteAllWrapper.innerHTML = `<button id="deleteAllTasks" class="deleteAllTasks">Delete All Completed Tasks</button>`;
+        lastTodo.after(deleteAllWrapper);
+
+    }
+
+    
 }
 
 function addNewList() {
@@ -221,6 +228,21 @@ function markTodoIncomplete(index) {
     renderPage();
 }
 
+function removeAllTodosCompleted() {
+    alert("THIS IS THE FUNCTION");
+    filteredArray = [];
+
+    currentList.todos.forEach((element) => {
+        if (element.completed === false) {
+            filteredArray.push(element);
+        }
+    });
+    
+    currentList.todos = filteredArray;
+    
+    renderPage();
+}
+
 
 
 
@@ -326,6 +348,16 @@ todoContainer.addEventListener('click', (event) => {
             console.log("THIS IS UNCHECKED");
             markTodoIncomplete(todoIndex);
         }
+    }
+});
+
+
+todoContainer.addEventListener('click', (event) => {
+    element = event.target;
+
+    if (element.classList.contains('deleteAllTasks')) {
+        alert("This Button Works");
+        removeAllTodosCompleted();
     }
 });
 

@@ -83,6 +83,7 @@ body {
   background-color: whitesmoke;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 .mainpage-container .sidebar-container .submit-new-list {
   width: 100%;
@@ -228,6 +229,7 @@ body {
   margin: 20px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 .mainpage-container .task-container .list-container .list .task-item {
   width: 65%;
@@ -306,6 +308,28 @@ body {
   background-color: rgb(85, 85, 85);
 }
 .mainpage-container .task-container .list-container .list .edit-task-item button:active {
+  background-color: rgb(19, 19, 19);
+}
+.mainpage-container .task-container .list-container .list .deleteAllTasksWrapper {
+  width: 66%;
+  height: 55px;
+  background-color: pink;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.mainpage-container .task-container .list-container .list .deleteAllTasksWrapper button {
+  width: 100%;
+  height: 55px;
+  background-color: black;
+  color: whitesmoke;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.mainpage-container .task-container .list-container .list .deleteAllTasksWrapper button:hover {
+  background-color: rgb(85, 85, 85);
+}
+.mainpage-container .task-container .list-container .list .deleteAllTasksWrapper button:active {
   background-color: rgb(19, 19, 19);
 }
 .mainpage-container .task-container .selected-task-container {
