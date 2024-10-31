@@ -253,7 +253,7 @@ body {
 .mainpage-container .task-container .list-container .list .task-item .task-description .line-through {
   text-decoration: line-through;
 }
-.mainpage-container .task-container .list-container .list .task-item .task-description #taskItemCheckbox {
+.mainpage-container .task-container .list-container .list .task-item .task-description input {
   transform: scale(1.5);
   accent-color: rgb(151, 255, 250);
 }

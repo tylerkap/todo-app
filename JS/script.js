@@ -38,13 +38,8 @@ function renderPage() {
         headingArray.push({position: currentList.position, text: listHeading});    
     }
 
-    console.log(`headingArrayLength: ${headingArray.length}`);
-    console.log(headingArray);
-    console.log(currentList);
-
     if (test !== "0") {
         let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position);
-        console.log(`Index: ${checkIndex}`);
         taskTitle.innerHTML = '';
         taskTitle.innerHTML = headingArray[checkIndex].text;
     }
@@ -56,37 +51,69 @@ function renderPage() {
     taskContainer.innerHTML = '';
 
     for (let j = 0; j < currentList.todos.length; j++) {
-        taskContainer.innerHTML += 
-        `
-            <div id=task-item-${j} class=task-item>
-                <div class=task-description>
-                    <input type=checkbox id=taskItemCheckbox name=taskItemCheckbox>
-                    <h3>${currentList.todos[j].text}</h3>
-                </div>
-                <div class=task-icons>
-                    <i id=todoEdit-${j} class="fa-solid fa-pen-to-square"></i>
-                    <i id=todoDelete-${j} class="fa-solid fa-trash"></i>
-                </div>
-            </div>
-        `; 
+        let list = document.getElementsByClassName('list')[0];
+        
+        let parent1 = document.createElement('div');
+        parent1.setAttribute('id', `task-item-${j}`);
+        parent1.setAttribute('class', 'task-item');
+        let child1 = document.createElement('div');
+        child1.setAttribute('class', 'task-description');
+        child1.innerHTML = `<input type=checkbox id=taskItemCheckbox-${j} class=checkBox>
+                            <h3 id=taskText-${j}>${currentList.todos[j].text}</h3>`;
+        parent1.appendChild(child1);
+        let child2 = document.createElement('div');
+        child2.setAttribute('class', 'task-icons');
+        child2.innerHTML = `<i id=todoEdit-${j} class="fa-solid fa-pen-to-square"></i>
+                            <i id=todoDelete-${j} class="fa-solid fa-trash"></i>`;
+        parent1.appendChild(child2);
+
+
+        list.appendChild(parent1);
+    
+        
+        
+        
+        
+        //taskContainer.innerHTML += 
+        // `
+        //     <div id=task-item-${j} class=task-item>
+        //         <div class=task-description>
+        //             <input type=checkbox id=taskItemCheckbox-${j} class=checkBox>
+        //             <h3 id=taskText-${j}>${currentList.todos[j].text}</h3>
+        //         </div>
+        //         <div class=task-icons>
+        //             <i id=todoEdit-${j} class="fa-solid fa-pen-to-square"></i>
+        //             <i id=todoDelete-${j} class="fa-solid fa-trash"></i>
+        //         </div>
+        //     </div>
+        // `; 
+
+        console.log(`Completed: ${currentList.todos[j].completed}`)
+
+        let checkBoxElement = document.getElementById(`taskItemCheckbox-${j}`);
+        let todoHeading = document.getElementById(`taskText-${j}`);
+
+        if (currentList.todos[j].completed === true) {
+            todoHeading.classList.add('line-through');
+            checkBoxElement.checked = true;
+        } 
+        else {
+            todoHeading.classList.remove('line-through');
+        }
+
+        console.log(`Current Todo: ${currentList.todos[j].completed}`)
+
     }
 }
-
-
 
 function addNewList() {
     
     let listInput = document.getElementById('list-name-input').value;
     let listId = listCount;
 
-    console.log(`ListCount: ${listId}`)
-    
-
     if (listInput !== '' || listInput === undefined) {
         lists[listId] = {name: listInput, todos: [], active: false, position: listCount};
         currentList = lists[listId];
-
-        console.log(currentList)
 
         for (const element in lists) {
             lists[element].active = false;
@@ -100,10 +127,10 @@ function addNewList() {
     }
 }
 
-
 function addTodo() {
 
     let taskInput = document.getElementById('taskInput').value;
+    
 
     if (taskInput !== '') {
         currentList.todos.push({text: taskInput, completed: false})
@@ -114,10 +141,6 @@ function addTodo() {
 function removeList(objectKey) {
     let listSize = Object.keys(lists).length;
     delete lists[objectKey];
-
-    console.log("REMOVE LIST TESTING");
-
-
     
     if (headingArray.length === 1) {
         headingArray = [];
@@ -125,13 +148,8 @@ function removeList(objectKey) {
     else {
         let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position)
         arrayIndex = parseInt(checkIndex);
-        console.log(`CHECK INDEX: ${arrayIndex}`)
         headingArray.splice(arrayIndex, 1);
-        console.log(arrayIndex);
     }
-
-    console.log(objectKey);
-    console.log(lists);
 
     let firstKey;
     let lastKey;
@@ -145,17 +163,11 @@ function removeList(objectKey) {
         lastKey = key;
     }
 
-    console.log(`FirstKey: ${firstKey}`);
-    console.log(`ObjectKey: ${objectKey}`);
-    console.log(`ListSize: ${listSize}`);
-
     if (listSize === 1) {
         
         currentList = {};
         let newList = document.getElementsByClassName('new-list-container')[0];
         newList.innerHTML = '';
-        console.log(newList.innerHTML);
-        console.log(`CurrentList: ${JSON.stringify(currentList)}`)
         addTask.style.visibility = 'hidden';
         listLoad.style.visibility = 'hidden';
         todoWrapper.style.visibility = 'hidden';
@@ -178,7 +190,6 @@ function removeTodo(index) {
 
 function editTodo(index) {
     let taskItem = document.getElementById(`task-item-${index}`);
-    alert(taskItem.innerHTML);
 
     let editContainer = document.createElement('div');
     editContainer.setAttribute('class', 'edit-task-item');
@@ -193,12 +204,22 @@ function editTodo(index) {
     editTodoButton.addEventListener('click', () => {
         let editText = editInput.value;
         currentList.todos[index].text = editText;
-        alert(editText);
+        currentList.todos[index].completed = false;
         renderPage();
     });
     
 }
 
+function markTodoCompleted(index) {
+
+    currentList.todos[index].completed = true;
+    renderPage();
+}
+
+function markTodoIncomplete(index) {
+    currentList.todos[index].completed = false;
+    renderPage();
+}
 
 
 
@@ -231,7 +252,6 @@ listContainer.addEventListener('click', (event) => {
             lists[element].active = false;
         }
 
-        console.log(idSanitize);
         lists[idSanitize].active = true;
         renderPage();
     }
@@ -243,7 +263,7 @@ let listNameContainer = document.getElementsByClassName('list-name')[0];
 listNameContainer.addEventListener('click', (event) => {
     let element = event.target;
 
-    if(element.classList.contains('fa-trash')) {
+    if (element.classList.contains('fa-trash')) {
         let heading = listNameContainer.firstElementChild; 
         let headingId = heading.className.replace(/[^0-9]/g, '');
         removeList(headingId);
@@ -251,11 +271,18 @@ listNameContainer.addEventListener('click', (event) => {
 });
 
 
-
+let taskInput = document.getElementById('taskInput')
 
 let taskButton = document.getElementById('taskButton');
 taskButton.addEventListener('click', () => {
     addTodo();
+});
+
+taskInput.addEventListener('keypress', () => {
+    if (event.key === 'Enter') {
+        event.preventDefault()
+        taskButton.click();
+    }
 });
 
 
@@ -264,10 +291,9 @@ let todoContainer = document.getElementsByClassName('list')[0];
 todoContainer.addEventListener('click', (event) => {
     element = event.target;
 
-    if(element.classList.contains('fa-trash')) {
+    if (element.classList.contains('fa-trash')) {
         let  todoId = element.getAttribute('id');
         let todoIndex = todoId.replace(/[^0-9]/g, '');
-        console.log(todoIndex);
         removeTodo(todoIndex);
     }
 });
@@ -275,14 +301,44 @@ todoContainer.addEventListener('click', (event) => {
 todoContainer.addEventListener('click', (event) => {
     element = event.target;
 
-    if(element.classList.contains('fa-pen-to-square')) {
+    if (element.classList.contains('fa-pen-to-square')) {
         let  todoId = element.getAttribute('id');
         let todoIndex = todoId.replace(/[^0-9]/g, '');
-        console.log(todoIndex);
         editTodo(todoIndex);
     }
 });
 
+todoContainer.addEventListener('click', (event) => {
+    element = event.target;
+   
+    if (element.classList.contains('checkBox')) {
+        let  todoId = element.getAttribute('id');
+        let todoIndex = todoId.replace(/[^0-9]/g, '');
+    
+        if (element.checked) {
+            console.log("THIS IS CHECKED");
+            markTodoCompleted(todoIndex);
+
+        }
+        else {
+            console.log("THIS IS UNCHECKED");
+            markTodoIncomplete(todoIndex);
+        }
+    }
+});
+
+
+let listInput = document.getElementById('list-name-input')
+
+listInput.addEventListener('keypress', () => {
+    if (event.key === "Enter") {
+        event.preventDefault()
+        listButton.click();
+    }
+
+});
 
 
 listButton.addEventListener('click', addNewList);
+
+

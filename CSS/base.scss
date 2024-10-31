@@ -331,7 +331,7 @@ body {
                             text-decoration: line-through;
                         }
 
-                        #taskItemCheckbox {
+                        input {
                             transform: scale(1.5);
                             accent-color: $highlight-blue;
                             
