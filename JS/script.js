@@ -275,7 +275,9 @@ let taskInput = document.getElementById('taskInput')
 
 let taskButton = document.getElementById('taskButton');
 taskButton.addEventListener('click', () => {
+    let taskInput = document.getElementById('taskInput');
     addTodo();
+    taskInput.value = '';
 });
 
 taskInput.addEventListener('keypress', () => {
@@ -339,6 +341,11 @@ listInput.addEventListener('keypress', () => {
 });
 
 
-listButton.addEventListener('click', addNewList);
+listButton.addEventListener('click', () => {
+    let listInput = document.getElementById('list-name-input');
+    addNewList();
+    listInput.value = '';
+
+});
 
 
