@@ -1,4 +1,6 @@
 function renderPage() {
+    
+    
     let sideBarContainer = document.getElementsByClassName('new-list-container')[0];
     
     sideBarContainer.innerHTML = '';
@@ -22,31 +24,25 @@ function renderPage() {
         sideBarContainer.appendChild(newList);
     }
 
-    addTask.style.visibility = 'visible';
-    listLoad.style.visibility = 'visible';
-    todoWrapper.style.visibility = 'visible';
-
+    
+    if (listSize >= 1) {
+        addTask.style.visibility = 'visible';
+        listLoad.style.visibility = 'visible';
+        todoWrapper.style.visibility = 'visible';
+    }
+  
     let taskTitle = document.getElementsByClassName('list-name')[0]; 
     
     listHeading = `<h1 class=heading-${currentList.position}>${currentList.name}</h1>`;
     listHeading += `<i id="listDelete" class="fa-solid fa-trash"></i>`;
 
-
-    
-
     if (headingArray.length < listSize) {
         headingArray.push({position: currentList.position, text: listHeading});    
     }
 
-    if (test !== "0") {
-        let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position);
-        taskTitle.innerHTML = '';
-        taskTitle.innerHTML = headingArray[checkIndex].text;
-    }
-
-    
-    
-
+    let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position);
+    taskTitle.innerHTML = '';
+    taskTitle.innerHTML = headingArray[checkIndex].text;
     let taskContainer = document.getElementsByClassName('list')[0];
     taskContainer.innerHTML = '';
 
@@ -70,8 +66,6 @@ function renderPage() {
 
         list.appendChild(parent1);
 
-        console.log(`Completed: ${currentList.todos[j].completed}`)
-
         let checkBoxElement = document.getElementById(`taskItemCheckbox-${j}`);
         let todoHeading = document.getElementById(`taskText-${j}`);
 
@@ -83,7 +77,6 @@ function renderPage() {
             todoHeading.classList.remove('line-through');
         }
 
-        console.log(`Current Todo: ${currentList.todos[j].completed}`)
 
     }
 
@@ -98,7 +91,6 @@ function renderPage() {
         }
     }
 
-    console.log(isCompleted);
     let lastTodoString = `task-item-${currentList.todos.length - 1}`;
     let lastTodo = document.getElementById(lastTodoString);
 
@@ -110,7 +102,7 @@ function renderPage() {
 
     }
 
-    
+    save();
 }
 
 function addNewList() {
@@ -128,8 +120,8 @@ function addNewList() {
 
         lists[listId].active = true;
         
-        renderPage();
         listCount++;
+        renderPage();
         
     }
 }
@@ -153,9 +145,18 @@ function removeList(objectKey) {
         headingArray = [];
     } 
     else {
+        let tempHeadingArray = [];
+        
         let checkIndex = headingArray.map(i => i.position).indexOf(currentList.position)
         arrayIndex = parseInt(checkIndex);
-        headingArray.splice(arrayIndex, 1);
+
+        for (let m = 0; m < headingArray.length; m++) {
+            if (m !== arrayIndex) {
+                tempHeadingArray.push(headingArray[m]);
+            }
+        }
+
+        headingArray = tempHeadingArray;
     }
 
     let firstKey;
@@ -171,28 +172,30 @@ function removeList(objectKey) {
     }
 
     if (listSize === 1) {
-        
         currentList = {};
+        headingArray = [];
         let newList = document.getElementsByClassName('new-list-container')[0];
         newList.innerHTML = '';
         addTask.style.visibility = 'hidden';
         listLoad.style.visibility = 'hidden';
         todoWrapper.style.visibility = 'hidden';
-        listSize--;
+        save();
     }
     else {
         currentList = lists[lastKey];
         currentList.active = true;
-        listSize--;
         renderPage();
     }  
 }
 
 function removeTodo(index) {
 
+    const todoElement = document.getElementById(`task-item-${index}`);
+    todoElement.classList.add('animate__hinge');
+    
     currentList.todos.splice(index, 1);
 
-    renderPage();
+    setTimeout(renderPage, 2000);
 }
 
 function editTodo(index) {
@@ -229,7 +232,6 @@ function markTodoIncomplete(index) {
 }
 
 function removeAllTodosCompleted() {
-    alert("THIS IS THE FUNCTION");
     filteredArray = [];
 
     currentList.todos.forEach((element) => {
@@ -243,10 +245,14 @@ function removeAllTodosCompleted() {
     renderPage();
 }
 
+function save() {
+    localStorage.setItem('currentList', JSON.stringify(currentList)); 
+    localStorage.setItem('lists', JSON.stringify(lists));
+    localStorage.setItem('listCount', listCount);
+    localStorage.setItem('headingArray', JSON.stringify(headingArray));
+}
 
-
-
-const lists = {};
+let lists = {};
 let currentList = {};
 let headingArray = [];
 let listCount = 1;
@@ -256,7 +262,30 @@ let todoWrapper = document.getElementById('list-container');
 let listButton = document.getElementById('listButton');
 addTask.style.visibility = 'hidden';
 listLoad.style.visibility = 'hidden';
-todoWrapper.style.visibility = 'visible';
+todoWrapper.style.visibility = 'hidden';
+
+
+window.addEventListener('load', () => {
+
+    const listCountStr = localStorage.getItem('listCount');
+    
+    if (listCountStr) {
+
+        listCount = parseInt(listCountStr);
+
+        
+        let currentListStr = localStorage.getItem('currentList');
+        let listsStr = localStorage.getItem('lists');
+        let headingArrayStr = localStorage.getItem('headingArray');
+
+        currentList = JSON.parse(currentListStr);
+        lists = JSON.parse(listsStr);
+        headingArray = JSON.parse(headingArrayStr);
+
+        renderPage();
+        
+    }
+});
 
 
 let listContainer = document.getElementsByClassName('new-list-container')[0];
@@ -340,12 +369,10 @@ todoContainer.addEventListener('click', (event) => {
         let todoIndex = todoId.replace(/[^0-9]/g, '');
     
         if (element.checked) {
-            console.log("THIS IS CHECKED");
             markTodoCompleted(todoIndex);
 
         }
         else {
-            console.log("THIS IS UNCHECKED");
             markTodoIncomplete(todoIndex);
         }
     }
@@ -356,7 +383,6 @@ todoContainer.addEventListener('click', (event) => {
     element = event.target;
 
     if (element.classList.contains('deleteAllTasks')) {
-        alert("This Button Works");
         removeAllTodosCompleted();
     }
 });
